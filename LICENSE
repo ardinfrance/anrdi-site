@@ -1,0 +1,112 @@
+Licence propriétaire  ASSOCIATION NATIONALE DE REGULATION DES DOMAINES ET DE L'INTERNET ©
+Version 1.0
+Date : 29 mai 2026
+
+Copyright (c) 2026 ASSOCIATION NATIONALE DE REGULATION DES DOMAINES ET DE L'INTERNET.
+Tous droits réservés.
+
+1. Objet
+
+La présente licence s'applique à l'ensemble du contenu de ce dépôt, y compris
+notamment le code source, le code objet, l'architecture, les fichiers de
+configuration, les ressources graphiques, les textes, les scripts, les
+gabarits, les documents techniques et tout autre élément associé au projet.
+
+2. Absence d'autorisation générale
+
+Sauf autorisation écrite préalable d'ANRDI, aucun droit d'exploitation,
+d'utilisation, de reproduction, de représentation, de modification,
+d'adaptation, de traduction, de distribution, de publication, de diffusion, de
+sous-licence, de commercialisation ou de mise à disposition n'est accordé,
+même partiellement.
+
+3. Interdictions
+
+Il est strictement interdit, sans autorisation écrite préalable d'ANRDI :
+
+- de copier tout ou partie du dépôt ;
+- de reproduire le code ou sa structure, à l'identique ou de manière
+  substantiellement similaire ;
+- de redistribuer le projet, publiquement ou privativement ;
+- de publier le code sur une autre plateforme, publique ou privée ;
+- de modifier le projet pour le réutiliser dans un autre contexte ;
+- de créer des oeuvres dérivées à partir du dépôt ;
+- d'utiliser tout ou partie du projet à des fins commerciales ;
+- d'intégrer le projet, même partiellement, dans un autre logiciel, service ou
+  site ;
+- de retirer, masquer ou altérer les mentions de propriété intellectuelle ;
+- d'extraire, réemployer ou reconstituer une partie significative du projet.
+
+4. Consultation limitée
+
+L'accès au dépôt, lorsqu'il est accordé, l'est uniquement à des fins de revue,
+de collaboration encadrée, de proposition de correction ou d'audit, dans le
+strict cadre défini par ANRDI.
+
+Cet accès n'emporte aucun transfert de propriété ni aucune licence implicite.
+
+5. Propriété intellectuelle
+
+L'ensemble des droits de propriété intellectuelle attachés au projet demeure la
+propriété exclusive d'ANRDI.
+
+Rien dans le présent dépôt ne doit être interprété comme une cession, une
+renonciation ou une licence implicite sur les droits d'auteur, droits voisins,
+marques, bases de données, dessins, modèles, savoir-faire ou tout autre droit
+protégé.
+
+6. Contributions
+
+Sauf accord écrit contraire, toute proposition, correctif, suggestion, patch,
+pull request, commentaire technique ou autre contribution transmise à ANRDI
+dans le cadre de ce dépôt pourra être utilisée, adaptée, refusée, modifiée,
+intégrée ou supprimée par ANRDI, sans obligation de publication, de
+compensation ou de restitution.
+
+Le contributeur garantit disposer des droits nécessaires sur ce qu'il soumet et
+que sa contribution n'enfreint pas les droits de tiers.
+
+7. Absence de transfert de droits
+
+La réception d'une contribution, l'accès au code, la lecture du dépôt ou les
+échanges autour du projet ne confèrent aucun droit de réutilisation autonome du
+contenu du dépôt.
+
+8. Confidentialité des éléments non publics
+
+Lorsqu'un accès est donné à des éléments non publics du projet, le destinataire
+s'engage à ne pas les divulguer, reproduire, réutiliser ou transmettre sans
+autorisation écrite préalable d'ANRDI.
+
+9. Révocation
+
+ANRDI peut à tout moment restreindre, suspendre ou retirer l'accès au dépôt ou
+à tout document associé, sans préavis ni justification particulière.
+
+10. Sanctions
+
+Toute utilisation non autorisée constitue une violation de la présente licence
+et pourra donner lieu à toute mesure utile, y compris retrait d'accès, demande
+de suppression, mise en demeure et action judiciaire.
+
+11. Absence de garantie
+
+Le dépôt est fourni en l'état, sans garantie d'aucune sorte, expresse ou
+implicite, notamment quant à son exactitude, sa disponibilité, sa sécurité, sa
+compatibilité ou son adéquation à un besoin particulier.
+
+12. Droit applicable
+
+La présente licence est régie par le droit français.
+
+Tout litige relatif à son interprétation, sa validité ou son exécution relève,
+sauf disposition impérative contraire, de la compétence des juridictions
+françaises territorialement compétentes.
+
+13. Contact
+
+Pour toute demande d'autorisation, d'utilisation, de partenariat ou de
+reproduction :
+
+ANRDI
+Contact : contact@anrdi.fr
