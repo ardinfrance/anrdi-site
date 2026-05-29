@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+Disallow: /membre/
+Disallow: /login
+Disallow: /login.php
+Disallow: /register
+Disallow: /register.php
+Disallow: /forgot-password
+Disallow: /forgot-password.php
+Disallow: /reset-password
+Disallow: /reset-password.php
+Disallow: /verify
+Disallow: /verify.php
+Disallow: /logout.php
+Disallow: /api/
+Disallow: /includes/
+Disallow: /vendor/
+
+Sitemap: https://anrdi.fr/sitemap.xml

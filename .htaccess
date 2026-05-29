@@ -1,0 +1,138 @@
+# ============================================================
+#  ANRDI - Configuration Apache (.htaccess) v2
+#  Plesk 18 / Apache 2.4 / Debian 13
+# ============================================================
+
+Options -Indexes -ExecCGI -Includes -MultiViews
+ServerSignature Off
+DirectoryIndex index.php index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Forcer HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE]
+
+  # Bloquer les fichiers ultra-sensibles
+  RewriteRule ^src/Core/Internal/System/Runtime/Config/Env/\.secure/ - [F,L]
+  RewriteRule ^\.env$                 - [F,L]
+  RewriteRule ^\.git(/|$)             - [F,L]
+  RewriteRule ^composer\.(json|lock)$ - [F,L]
+  RewriteRule ^package(-lock)?\.json$ - [F,L]
+  RewriteRule ^logs/                  - [F,L]
+  RewriteRule ^uploads/secure/        - [F,L]
+  RewriteRule ^\.htpasswd$            - [F,L]
+
+  # Let's Encrypt
+  RewriteRule ^\.well-known/acme-challenge/ - [L]
+
+  # Bloquer user-agents malveillants
+  RewriteCond %{HTTP_USER_AGENT} (masscan|nmap|nikto|sqlmap|havij|acunetix|netsparker|zgrab|gobuster|dirbuster|hydra|libwww-perl) [NC]
+  RewriteRule ^ - [F,L]
+
+  # Endpoints SEO
+  RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+  # Masquer les extensions PHP
+  RewriteCond %{THE_REQUEST} \s/+(.+?)\.php(?:[\s?]|$) [NC]
+  RewriteCond %{DOCUMENT_ROOT}/%1.php -f
+  RewriteRule ^ %1 [R=301,L,NE]
+
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.php -f
+  RewriteRule ^(.+?)/?$ $1.php [L]
+
+  # URL propres -> index.php
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Headers de securite
+<IfModule mod_headers.c>
+  Header always unset X-Powered-By
+  Header always unset Server
+
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" "expr=%{HTTPS} == 'on'"
+  Header always set X-Frame-Options              "DENY"
+  Header always set X-Content-Type-Options       "nosniff"
+  Header always set X-XSS-Protection             "1; mode=block"
+  Header always set Referrer-Policy              "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy           "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+  Header always set Cross-Origin-Opener-Policy   "same-origin"
+  Header always set Cross-Origin-Resource-Policy "same-site"
+
+  # CSP globale (affinage par page via PHP)
+ Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.anrdi.fr https://cdn.axet.fr https://api.axet.fr ; style-src 'self' https://cdnjs.cloudflare.com https://cdn.anrdi.fr https://api.axet.fr https://api.axet.fr/site/e486750cfe9b4e588000f39f76273418 'unsafe-inline'; font-src 'self' https://cdn.anrdi.fr https://cdnjs.cloudflare.com; img-src 'self' https://cdn.anrdi.fr https://cdn.axet.fr data: blob:; connect-src 'self' https://api.anrdi.fr https://cdn.axet.fr https://api.axet.fr ; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://pro.anrdi.fr https://admin.anrdi.fr https://membres.anrdi.fr; upgrade-insecure-requests; block-all-mixed-content;"
+
+  # Cache PHP : no-store
+  <FilesMatch "\.php$">
+    Header always set Cache-Control "no-store, no-cache, must-revalidate, private"
+    Header always set Pragma "no-cache"
+  </FilesMatch>
+
+  # Cache assets : 1 an
+  <FilesMatch "\.(css|js|woff2?|ttf|otf|eot|svg|png|jpg|jpeg|gif|ico|webp)$">
+    Header always set Cache-Control "public, max-age=31536000, immutable"
+    Header always set Vary "Accept-Encoding"
+  </FilesMatch>
+</IfModule>
+
+# Bloquer extensions dangereuses dans les uploads
+<IfModule mod_rewrite.c>
+  RewriteRule ^uploads/.*\.(php[0-9]?|phtml|phar|asp|aspx|jsp|sh|py|rb|cgi|shtml|cfm)$ - [F,NC,L]
+</IfModule>
+
+# Anti-injection querystring
+<IfModule mod_rewrite.c>
+  RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3E)     [NC,OR]
+  RewriteCond %{QUERY_STRING} (union.*select|select.*from) [NC,OR]
+  RewriteCond %{QUERY_STRING} (drop.*table|insert.*into)   [NC,OR]
+  RewriteCond %{QUERY_STRING} (\.\./|\.\.\\)               [NC,OR]
+  RewriteCond %{QUERY_STRING} (;|%00|%0A|%0D|%22|%27|%3C|%3E) [NC]
+  RewriteRule ^ - [F,L]
+</IfModule>
+
+# Methodes HTTP autorisees
+<LimitExcept GET POST HEAD OPTIONS>
+  Require all denied
+</LimitExcept>
+
+# Blocage direct des fichiers sensibles
+<FilesMatch "(\.env|\.htpasswd|composer\.lock|database\.sql)$">
+  Require all denied
+</FilesMatch>
+
+# Proteger ce fichier lui-meme
+<Files ".htaccess">
+  Require all denied
+</Files>
+
+# Compression Gzip
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain text/html text/css text/javascript
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE application/xml image/svg+xml
+</IfModule>
+
+# Desactiver l'autoindex
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>
+
+# Limite taille requetes
+LimitRequestBody 10485760
+
+# Charset
+AddDefaultCharset UTF-8
+
+# Pages d'erreur
+ErrorDocument 400 /errors/400.php
+ErrorDocument 403 /errors/403.php
+ErrorDocument 404 /errors/404.php
+ErrorDocument 405 /errors/405.php
+ErrorDocument 429 /errors/429.php
+ErrorDocument 500 /errors/500.php
+ErrorDocument 503 /errors/503.php
